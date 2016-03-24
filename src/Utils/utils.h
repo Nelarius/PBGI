@@ -1,13 +1,10 @@
 #ifndef UTILS
 #define UTILS
 
-#ifndef WIN32
-    #include <unistd.h>
-#endif
-#include <stdlib.h>
-#include <stdio.h>
-#include <string>
-#include <string.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
+#include <cstring>
 
 #define ZERO_MEM(a) memset(a, 0, sizeof(a))
 

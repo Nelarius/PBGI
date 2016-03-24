@@ -1,4 +1,4 @@
-#define GLEW_STATIC
+
 #ifdef __WIN32__
 #include <windows.h>
 #endif
@@ -30,7 +30,7 @@ void window_cursor_position_callback(GLFWwindow* window, double xpos, double ypo
 {
     if(screenX/2 != xpos && screenY != ypos)
     {
-        demo->setMouseMovement(screenX/2-xpos, screenY/2-ypos);
+        demo->setMouseMovement(int(screenX/2-xpos), int(screenY/2-ypos));
         glfwSetCursorPos(window, screenX/2, screenY/2);
     }
 }
@@ -92,7 +92,7 @@ void window_scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     (void) window;
     (void) xoffset;
-    demo->modifyFov(yoffset);
+    demo->modifyFov(int(yoffset));
 }
 
 int main(int argc, char *argv[])
@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
     glfwSetScrollCallback(window, window_scroll_callback);
 
     // GLEW
-    glewExperimental = GL_TRUE; //stops glew crashing on OSX :/
+    glewExperimental = GL_TRUE;
     if(glewInit() != GLEW_OK)
         throw std::runtime_error("glewInit failed");
 

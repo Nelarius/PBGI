@@ -50,6 +50,7 @@ double Clock::getTime()
 		QueryPerformanceCounter((LARGE_INTEGER*)&tmp);	
         return ((double)tmp) * timerFreq-m_base;
     #endif
+        return 0.0;
 }
 
 //-----------------------------------------------------------------------------

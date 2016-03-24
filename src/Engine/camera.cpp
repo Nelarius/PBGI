@@ -1,4 +1,8 @@
 #include "camera.h"
+
+const float Camera::minFov = 40.f;
+const float Camera::maxFov = 120.f;
+
 Camera::Camera()
 {}
 
@@ -43,8 +47,8 @@ void Camera::horizontalMovement(const int &movement)
     direction.x = cos(verticalAngle) * sin(horizontalAngle);
     direction.z = cos(verticalAngle) * cos(horizontalAngle);
 
-    right.x = sin(horizontalAngle - M_PI_2);
-    right.z = cos(horizontalAngle - M_PI_2);
+    right.x = sin(horizontalAngle - float(M_PI_2));
+    right.z = cos(horizontalAngle - float(M_PI_2));
 
     up = glm::cross(right, direction);
 

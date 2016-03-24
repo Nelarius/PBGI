@@ -51,8 +51,8 @@ private:
 	int windowWidth, windowHeight;
     glm::vec3 position, direction, right, up;
 	float horizontalAngle, verticalAngle, radius, speed, mouseSpeed, fov;
-    static const float minFov = 40.f;
-    static const float maxFov = 120.f;
+    static const float minFov;
+    static const float maxFov;
 };
 
 #endif // CAMERA_H
