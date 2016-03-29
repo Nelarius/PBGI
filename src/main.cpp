@@ -11,8 +11,8 @@
 
 #include "demo.h"
 
-unsigned screenX = 1280;
-unsigned screenY = 720;
+unsigned screenX = 2843;
+unsigned screenY = 1600;
 
 GLFWwindow *window = NULL;
 GLFWmonitor *monitor = NULL;
@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
     {
         glfwPollEvents();
         demo->render();
-        //demo->showDebug();
+        demo->showDebug();
         glfwSwapBuffers(window);
     }
 
