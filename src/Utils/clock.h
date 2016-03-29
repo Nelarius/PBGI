@@ -1,5 +1,6 @@
-#ifndef CLOCK_H
-#define CLOCK_H
+#pragma once
+
+#include <chrono>
 
 //-----------------------------------------------------------------------------
 // Class Clock
@@ -7,20 +8,16 @@
 class Clock
 {
 public:
-       Clock();
-       ~Clock();
+    Clock() = default;
+    ~Clock() = default;
 
-       double getElapsedTime();
-       double getTime();
+    double getElapsedTime();
 
-       void sleep(const double t);
-       void reset(double time = 0);
+    void sleep(float t);
+    void reset();
 
 private:
-       double m_start;
-       double m_base;
+    std::chrono::steady_clock::time_point m_start;
 };
 
 
-#endif
- 

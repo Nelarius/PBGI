@@ -1,72 +1,27 @@
-#ifdef __WIN32__
-    #include <windows.h>
-#endif
-#ifdef __linux__
-    #include <unistd.h>
-    #include <sys/time.h>
-#endif
-
 #include "Utils/clock.h"
-
-//-----------------------------------------------------------------------------
-// Constructor / Destructor
-//-----------------------------------------------------------------------------
-Clock::Clock()
-{
-    reset();
-    m_base = 0.;
-    m_base = getTime();
-}
-
-Clock::~Clock()
-{
-
-}
+#include <cstdint>
+#include <thread>
 
 //-----------------------------------------------------------------------------
 // Get functions
 //-----------------------------------------------------------------------------
 double Clock::getElapsedTime()
 {
-    return getTime() - m_start;
-}
-
-double Clock::getTime()
-{
-    #ifdef __linux__
-        timeval Time = {0, 0};
-        gettimeofday(&Time, NULL);
-        return (Time.tv_sec + Time.tv_usec / 1000000.);
-    #endif
-    #ifdef __WIN32__
-		static bool isInitialized;
-		static double timerFreq;
-		static unsigned __int64 tmp;
-		if ( !isInitialized ) {
-			isInitialized = true;
-			QueryPerformanceFrequency((LARGE_INTEGER*)&tmp);
-			timerFreq = 1.0/(double)tmp;
-		}
-		QueryPerformanceCounter((LARGE_INTEGER*)&tmp);	
-        return ((double)tmp) * timerFreq-m_base;
-    #endif
-        return 0.0;
+    std::chrono::duration<double> diff = std::chrono::steady_clock::now() - m_start;
+    return diff.count();
 }
 
 //-----------------------------------------------------------------------------
 // Other functions
 //-----------------------------------------------------------------------------
-void Clock::sleep(const double t)
+void Clock::sleep(float t)
 {
-    #ifdef __linux__
-        usleep((unsigned int)t*1000000);
-    #endif
-    #ifdef __WIN32__
-        ::Sleep(static_cast<DWORD>(t * 1000));
-    #endif
+    std::uint64_t inMicro = std::uint64_t(1e6f * t);
+    std::chrono::microseconds duration(inMicro);
+    std::this_thread::sleep_for(duration);
 }
 
-void Clock::reset(double time)
+void Clock::reset()
 {
-    m_start = getTime()-time;
+    m_start = std::chrono::steady_clock::now();
 }

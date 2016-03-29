@@ -119,7 +119,7 @@ void Demo::placeLightToCamera()
 
 void Demo::render()
 {
-    float t = m_clock.getTime()*.1;
+    float t = m_clock.getElapsedTime()*.1;
     ///m_cube->setTransform( glm::rotate(glm::translate( glm::mat4(1.), glm::vec3(2.,0.,-1.)), t*1.5f, glm::vec3(0.5,1.,0.75)));
     m_light->setViewMatrix( glm::lookAt(glm::vec3(cos(t), 1.f, sin(t))*5.f, glm::vec3(0.), glm::vec3(0.,1.,0.)));
 
